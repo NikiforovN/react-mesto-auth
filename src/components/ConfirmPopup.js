@@ -1,5 +1,6 @@
 import React from "react";
-import PopupWithForm from "../components/PopupWithForm";
+import Form from "./Form";
+import Popup from "./Popup";
 
 function ConfirmPopup(props) {
   function handleSubmit(event) {
@@ -7,20 +8,20 @@ function ConfirmPopup(props) {
     props.onCardDelete(props.deleteCard);
   }
   return (
-    <PopupWithForm
+    <Popup
       popupType="popup-confirm"
-      title="Вы уверены?"
       show={props.isOpen}
       onClickClose={props.onClose}
-      onSubmit={handleSubmit}
     >
-      <button
-        className="popup__button popup__button_difference_confirm-form"
-        type="submit"
-      >
-        {props.isLoading ? "Удаление..." : "Да"}
-      </button>
-    </PopupWithForm>
+      <Form title="Вы уверены?" onSubmit={handleSubmit}>
+        <button
+          className="form__button form__button_difference_confirm-form"
+          type="submit"
+        >
+          {props.isLoading ? "Удаление..." : "Да"}
+        </button>
+      </Form>
+    </Popup>
   );
 }
 export default ConfirmPopup;

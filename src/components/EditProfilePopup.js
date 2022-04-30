@@ -1,5 +1,5 @@
 import React from "react";
-import PopupWithForm from "../components/PopupWithForm";
+import Popup from "./Popup";
 import { UserInfo } from "../contexts/CurrentUserContext";
 import Form from "./Form";
 
@@ -31,7 +31,7 @@ function EditProfilePopup(props) {
   }
 
   return (
-    <PopupWithForm
+    <Popup
       popupType="edit-form"
       show={props.isOpen}
       onClickClose={props.onClose}
@@ -71,7 +71,7 @@ function EditProfilePopup(props) {
           {props.isLoading ? "Сохранение..." : "Сохранить"}
         </button>
       </Form>
-    </PopupWithForm>
+    </Popup>
   );
 }
 export default EditProfilePopup;

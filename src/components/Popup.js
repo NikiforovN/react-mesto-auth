@@ -1,4 +1,4 @@
-function PopupWithForm(props) {
+function Popup(props) {
 
  
 
@@ -31,4 +31,4 @@ function PopupWithForm(props) {
     </section>
   );
 }
-export default PopupWithForm;
+export default Popup;

@@ -1,5 +1,5 @@
 import React from "react";
-import PopupWithForm from "../components/PopupWithForm";
+import Popup from "./Popup";
 import { Cards } from "../contexts/CardsContext";
 import Form from "./Form";
 
@@ -36,7 +36,7 @@ function AddPlacePopup(props) {
   }, [props.isOpen]);
 
   return (
-    <PopupWithForm
+    <Popup
       popupType="add-place"
       show={props.isOpen}
       onClickClose={props.onClose}
@@ -74,7 +74,7 @@ function AddPlacePopup(props) {
           {props.isLoading ? "Сохранение..." : "Сохранить"}
         </button>
       </Form>
-    </PopupWithForm>
+    </Popup>
   );
 }
 

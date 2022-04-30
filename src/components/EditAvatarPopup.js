@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import PopupWithForm from "../components/PopupWithForm";
+import Popup from "./Popup";
 import Form from "./Form";
 
 function EditAvatarPopup(props) {
@@ -18,7 +18,7 @@ function EditAvatarPopup(props) {
   }, [props.isOpen]);
 
   return (
-    <PopupWithForm
+    <Popup
       popupType="change-avatar"
       show={props.isOpen}
       onClickClose={props.onClose}
@@ -43,7 +43,7 @@ function EditAvatarPopup(props) {
           {props.isLoading ? "Сохранение..." : "Сохранить"}
         </button>
       </Form>
-    </PopupWithForm>
+    </Popup>
   );
 }
 export default EditAvatarPopup;

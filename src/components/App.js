@@ -12,6 +12,8 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmPopup from "./ConfirmPopup";
+import Login from "./Login";
+import Register from "./Register";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -181,6 +183,7 @@ function App() {
   return (
     <Switch>
       <UserInfo.Provider value={currentUser}>
+        
         <Header />
 
         <Cards.Provider value={cardsInfo}>
@@ -192,6 +195,7 @@ function App() {
             onCardLike={handleCardLike}
             onConfirmPopup={handleConfirmPopupOpen}
           />
+
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={() => {
