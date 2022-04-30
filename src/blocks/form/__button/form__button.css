@@ -1,4 +1,4 @@
-.popup__button {
+.form__button {
   margin-top: 10%;
   margin-bottom: 37px;
   padding: 0;
@@ -18,11 +18,11 @@
   text-align: center;
   opacity: 1;
 }
-.popup__button:hover {
+.form__button:hover {
   opacity: 0.8;
 }
 @media screen and (max-width: 540px) {
-  .popup__button {
+  .form__button {
     min-width: 238px;
     margin-top: 45px;
     margin-bottom: 25px;

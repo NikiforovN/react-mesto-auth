@@ -19,19 +19,14 @@ function PopupWithForm(props) {
           "popup__rectangle_difference_height"
         }`}
       >
-        <h2 className="popup__title">{props.title}</h2>
         <button
           type="button"
           className="close-icon buttons-hover"
           onClick={props.onClickClose}
         ></button>
-        <form
-          className="popup__container"
-          method="get"
-          onSubmit={props.onSubmit}
-        >
-          {props.children}
-        </form>
+
+        {props.children}
+
       </div>
     </section>
   );

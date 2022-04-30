@@ -1,6 +1,7 @@
 import React from "react";
 import PopupWithForm from "../components/PopupWithForm";
 import { Cards } from "../contexts/CardsContext";
+import Form from "./Form";
 
 function AddPlacePopup(props) {
   const [name, setName] = React.useState("");
@@ -37,43 +38,42 @@ function AddPlacePopup(props) {
   return (
     <PopupWithForm
       popupType="add-place"
-      title="Новое место"
       show={props.isOpen}
       onClickClose={props.onClose}
-      onSubmit={handleSubmit}
-      
     >
-      <div className="popup__field-container">
-        <input
-          type="text"
-          className="popup__field"
-          name="name"
-          id="title"
-          placeholder="Название"
-          minLength="2"
-          maxLength="30"
-          required
-          onChange={handleNameChange}
-          value={name || ""}
-        />
-        <span className="popup__input-error popup__title-error"></span>
-      </div>
-      <div className="popup__field-container">
-        <input
-          type="url"
-          className="popup__field"
-          name="link"
-          id="link"
-          placeholder="Ссылка на картинку"
-          required
-          onChange={handleLinkChange}
-          value={link || ''}
-        />
-        <span className="popup__input-error popup__link-error"></span>
-      </div>
-      <button className="popup__button" type="submit">
-        {props.isLoading ? "Сохранение..." : "Сохранить"}
-      </button>
+      <Form title="Новое место" onSubmit={handleSubmit}>
+        <div className="form__field-container">
+          <input
+            type="text"
+            className="form__field"
+            name="name"
+            id="title"
+            placeholder="Название"
+            minLength="2"
+            maxLength="30"
+            required
+            onChange={handleNameChange}
+            value={name || ""}
+          />
+          <span className="form__input-error form__title-error"></span>
+        </div>
+        <div className="form__field-container">
+          <input
+            type="url"
+            className="form__field"
+            name="link"
+            id="link"
+            placeholder="Ссылка на картинку"
+            required
+            onChange={handleLinkChange}
+            value={link || ""}
+          />
+          <span className="form__input-error form__link-error"></span>
+        </div>
+        <button className="form__button" type="submit">
+          {props.isLoading ? "Сохранение..." : "Сохранить"}
+        </button>
+      </Form>
     </PopupWithForm>
   );
 }

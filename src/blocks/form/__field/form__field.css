@@ -1,4 +1,4 @@
-.popup__field {
+.form__field {
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   min-width: 358px;
@@ -15,7 +15,7 @@
   transition: 0.5s linear;
 }
 @media screen and (max-width: 540px) {
-  .popup__field {
+  .form__field {
     min-width: 238px;
   }
 }
