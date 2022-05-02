@@ -56,40 +56,39 @@ function App() {
 
   React.useEffect(() => {
     if (isLoggedIn) {
-      history.push("/profile");
+      history.push("/");
       return;
     }
     history.push("/register");
   }, [isLoggedIn]);
 
   React.useEffect(() => {
-    Promise.all([api.getProfile(), api.getInitialCards()])
+    if(isLoggedIn){
+      Promise.all([api.getProfile(), api.getInitialCards(), tokenCheck()])
       .then(([userData, cards]) => {
         setCurrentUser(userData);
         setCardsInfo(cards);
       })
       .catch((err) => {
-        console.log(err.ok);
+        console.log(err);
       });
-  }, []);
+      return
+    }
+  }, [isLoggedIn]);
 
   function handleEditProfilePopupOpen() {
-    setEventListenerOnEscKeydown();
     setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPopupOpen() {
-    setEventListenerOnEscKeydown();
     setIsAddPlacePopupOpen(true);
   }
 
   function handleEditAvatarPopupOpen() {
-    setEventListenerOnEscKeydown();
     setIsEditAvatarPopupOpen(true);
   }
 
   function handleImagePopupOpen(title, link) {
-    setEventListenerOnEscKeydown();
     setIsImagePopupOpen(true);
     setSelectedCard({
       name: title,
@@ -98,7 +97,6 @@ function App() {
   }
 
   function handleConfirmPopupOpen(card) {
-    setEventListenerOnEscKeydown();
     setIsConfirmPopupOpen(true);
     setDeletedCard(card);
   }
@@ -110,7 +108,6 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsConfirmPopupOpen(false);
     setIsInfoTooltipPopupOpen(false);
-    document.removeEventListener("keydown", handleEscClose);
   }
 
   function handleUpdateUser(currentUser) {
@@ -198,21 +195,22 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleEscClose(evt) {
-    if (evt.key === "Escape") closeAllPopups();
-  }
+  
 
-  function setEventListenerOnEscKeydown() {
-    document.addEventListener("keydown", handleEscClose);
-  }
 
   function handleLogin({ email, password }) {
-    return mestoAuth.authorize({ email, password }).then((res) => {
+    return mestoAuth.authorize({ email, password })
+    .then((res) => {
       if (!res.token) {
         return;
       }
       localStorage.setItem("jwt", res.token);
       setIsLoggedIn(true);
+    })
+    .catch((err)=>{
+      console.log(err)
+      setRegisryState(false)
+      setIsInfoTooltipPopupOpen(true)
     });
   }
 
@@ -220,13 +218,12 @@ function App() {
     return mestoAuth.register({ email, password })
     .then(() => {
       setRegisryState(true)
-      setEventListenerOnEscKeydown();
+
       setIsInfoTooltipPopupOpen(true)
       history.push("/login");
     })
     .catch(()=>{
       setRegisryState(false)
-      setEventListenerOnEscKeydown();
       setIsInfoTooltipPopupOpen(true)
     });
   }
@@ -234,13 +231,15 @@ function App() {
   function tokenCheck() {
     if (localStorage.getItem("jwt")) {
       let jwt = localStorage.getItem("jwt");
-      mestoAuth.getContent(jwt).then((res) => {
+      mestoAuth.getContent(jwt)
+      .then((res) => {
         setUserData({
           email: res.data.email,
           _id: res.data._id,
         });
         setIsLoggedIn(true);
-      });
+      })
+      .catch((err)=> console.log(err));
     }
   }
 
@@ -271,11 +270,11 @@ function App() {
         </Route>
 
         <Route>
-          {isLoggedIn ? <Redirect to="/profile" /> : <Redirect to="/login" />}
+          {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/login" />}
         </Route>
 
         <Cards.Provider value={cardsInfo}>
-          <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
+          <ProtectedRoute path="/" isLoggedIn={isLoggedIn}>
             <Main
               onEditProfile={handleEditProfilePopupOpen}
               onAddPlace={handleAddPopupOpen}
@@ -285,8 +284,11 @@ function App() {
               onConfirmPopup={handleConfirmPopupOpen}
             />
           </ProtectedRoute>
+        </Cards.Provider>
 
-          <AddPlacePopup
+        <Footer />
+
+        <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={() => {
               closeAllPopups();
@@ -294,10 +296,8 @@ function App() {
             onAddPlace={handleAddPlaceCard}
             isLoading={isLoading}
             isLoggedIn={isLoggedIn}
+            cards={cardsInfo}
           />
-        </Cards.Provider>
-
-        <Footer />
 
         <ImagePopup
           card={selectedCard}

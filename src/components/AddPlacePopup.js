@@ -1,17 +1,17 @@
 import React from "react";
 import Popup from "./Popup";
-import { Cards } from "../contexts/CardsContext";
+
 import Form from "./Form";
 
 function AddPlacePopup(props) {
   const [name, setName] = React.useState("");
   const [link, setLink] = React.useState("");
-  const cards = React.useContext(Cards);
+  
 
   React.useEffect(() => {
-    setName(cards.name);
-    setLink(cards.link);
-  }, [cards]);
+    setName(name);
+    setLink(link);
+  }, [props.cards]);
 
   function handleNameChange(event) {
     setName(event.target.value);

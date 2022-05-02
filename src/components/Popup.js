@@ -1,3 +1,5 @@
+import React from "react";
+
 function Popup(props) {
 
  
@@ -6,6 +8,18 @@ function Popup(props) {
     if (evt.target === evt.currentTarget)
     props.onClickClose();
   }
+
+  function handleEscClose(evt) {
+    if (evt.key === "Escape") props.onClickClose();
+  }
+
+  React.useEffect(()=>{
+    if(props.show){
+      document.addEventListener("keydown", handleEscClose);
+      return;
+    }
+    document.removeEventListener("keydown", handleEscClose);
+  },[props.show])
 
   return (
     <section
