@@ -36,7 +36,7 @@ function EditProfilePopup(props) {
       show={props.isOpen}
       onClickClose={props.onClose}
     >
-      <Form title="Редактировать профиль" onSubmit={handleSubmit}>
+      <Form title="Редактировать профиль" onSubmit={handleSubmit} loggedIn={props.isLoggedIn}>
         <div className="form__field-container">
           <input
             type="text"

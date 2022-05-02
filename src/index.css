@@ -47,9 +47,10 @@
 @import url(../src/blocks/form/__input-error/_active/form__input-error_active.css);
 @import url(../src/blocks/form/__input-error/form__input-error.css);
 @import url(../src/blocks/form/__title/form__title.css);
-@import url(../src/blocks/form/__title/_difference_color/form__title_difference_authorization.css);
+@import url(../src/blocks/form/__title/_difference_authorization/form__title_difference_authorization.css);
 @import url(../src/blocks/form/__box/form__box.css);
 @import url(../src/blocks/form/__register-question/form__register-question.css);
+@import url(../src/blocks/form/__register-question-button/form__register-question-button.css);
 
 @import url(../src/blocks/popup/popup.css);
 @import url(../src/blocks/popup/_difference/popup_difference_opacity.css);
@@ -60,6 +61,8 @@
 @import url(../src/blocks/popup/__pic/popup__pic.css);
 @import url(../src/blocks/popup/__caption/popup__caption.css);
 @import url(../src/blocks/popup/__rectangle/difference/popup_difference_height.css);
+@import url(../src/blocks/popup/__regisry-image/popup__regisry-image.css);
+@import url(../src/blocks/popup/__regisry-info/popup__regisry-info.css);
 
 @import url(../src/blocks/close-icon/close-icon.css);
 

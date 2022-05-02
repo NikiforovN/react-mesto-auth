@@ -3,11 +3,12 @@
   font-weight: 900;
   font-size: 24px;
   line-height: 1.2;
-  color: #fff;
-  margin: 0;
+  color: #000;
   z-index: 5;
   margin-left: 36px;
   margin-top: 34px;
+  margin-bottom: 0;
+  align-self: flex-start;
 }
 @media screen and (max-width: 540px) {
   .form__title {

@@ -1,8 +1,36 @@
+import React from "react";
 import Form from "./Form";
 
 function Login(props) {
+
+const [inputs, setInputs] = React.useState({
+  email:'',
+  password:''
+})
+
+function handleInputsChange(event){
+  const {name,value} = event.target
+  setInputs((prev)=>({
+    ...prev,
+    [name]:value,
+  }))
+}
+
+
+function handleSubmit(event){
+  event.preventDefault();
+  if(!inputs.email || !inputs.password){
+    return;
+  }
+
+  props.handleLogin(inputs)
+  .catch((err)=> console.log(err))
+
+}
+
+
   return (
-    <Form title="Вход">
+    <Form title="Вход" onSubmit={handleSubmit} loggedIn={props.isLoggedIn}>
       <div className="form__field-container">
         <input
           type="email"
@@ -13,8 +41,8 @@ function Login(props) {
           minLength="2"
           maxLength="30"
           required
-         
-          /* value={""} */
+          onChange={handleInputsChange}
+          value={inputs.email} 
         />
         <span className="form__input-error form__title-error"></span>
       </div>
@@ -26,8 +54,8 @@ function Login(props) {
           id="password"
           placeholder="Пароль"
           required
-          
-          /* value={""} */
+          onChange={handleInputsChange}
+          value={inputs.password} 
         />
         <span className="form__input-error form__link-error"></span>
       </div>

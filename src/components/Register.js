@@ -1,9 +1,33 @@
 import Form from "./Form";
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Register(props) {
+  const [inputs, setInputs] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  function handleInputsChange(event) {
+    const { name, value } = event.target;
+    setInputs((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    props.handleRegister(inputs).catch((err) => console.log(err));
+  }
+
   return (
     <>
-      <Form title="Регистрация">
+      <Form
+        title="Регистрация"
+        onSubmit={handleSubmit}
+        loggedIn={props.isLoggedIn}
+      >
         <div className="form__field-container">
           <input
             type="email"
@@ -14,8 +38,8 @@ function Register(props) {
             minLength="2"
             maxLength="30"
             required
-
-            /* value={""} */
+            onChange={handleInputsChange}
+            value={inputs.email}
           />
           <span className="form__input-error form__title-error"></span>
         </div>
@@ -27,8 +51,8 @@ function Register(props) {
             id="password"
             placeholder="Пароль"
             required
-
-            /* value={""} */
+            onChange={handleInputsChange}
+            value={inputs.password}
           />
           <span className="form__input-error form__link-error"></span>
         </div>
@@ -39,9 +63,18 @@ function Register(props) {
           {props.isLoading ? "Регистрация..." : "Зарегистрироваться"}
         </button>
       </Form>
-      <p className="form__register-question">Уже зарегистрированы? <span className="buttons-hover">Войти</span></p>
+      <p className="form__register-question">
+        Уже зарегистрированы?{" "}
+        <Link to="login" className="form__register-question-button buttons-hover">
+          Войти
+        </Link>{" "}
+      </p>
     </>
   );
 }
 
 export default Register;
+
+{
+  /* <span className="buttons-hover" onClick={props.handleSignInButtonClick}>Войти</span> */
+}

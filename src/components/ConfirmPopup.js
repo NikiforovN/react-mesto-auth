@@ -13,7 +13,7 @@ function ConfirmPopup(props) {
       show={props.isOpen}
       onClickClose={props.onClose}
     >
-      <Form title="Вы уверены?" onSubmit={handleSubmit}>
+      <Form title="Вы уверены?" onSubmit={handleSubmit} loggedIn={props.isLoggedIn}>
         <button
           className="form__button form__button_difference_confirm-form"
           type="submit"

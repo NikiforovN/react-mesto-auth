@@ -41,7 +41,7 @@ function AddPlacePopup(props) {
       show={props.isOpen}
       onClickClose={props.onClose}
     >
-      <Form title="Новое место" onSubmit={handleSubmit}>
+      <Form title="Новое место" onSubmit={handleSubmit} loggedIn={props.isLoggedIn}>
         <div className="form__field-container">
           <input
             type="text"
