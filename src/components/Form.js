@@ -16,5 +16,3 @@ function Form(props) {
 }
 
 export default Form;
-
-//form__title_difference_authorization

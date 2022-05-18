@@ -1,15 +1,16 @@
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import { Link, useLocation, Switch, Route } from "react-router-dom";
 import headerLogo from "../images/header__logo.svg";
+import menuButton from "../images/menu-button.svg";
 
 function Header(props) {
-  let location = useLocation();
-
   return (
     <header className="header">
       <img src={headerLogo} alt="Логотип Место" className="header__logo" />
+
       <div className="header__container">
-        {props.isLoggedIn ? (
-          <>
+        <Switch>
+          <Route exact path="/">
             <p className="header__name">{props.userEmail}</p>
             <button
               className="header__link buttons-hover"
@@ -17,24 +18,20 @@ function Header(props) {
             >
               Выйти
             </button>
-          </>
-        ) : (
-          <>
-            {location.pathname === "/login" ? (
-              <Link to="register" className="header__link buttons-hover">
-                Регистрация
-              </Link>
-            ) : (
-              <Link to="login" className="header__link buttons-hover">
-                Войти
-              </Link>
-            )}
-          </>
-        )}
+          </Route>
+          <Route path="/login">
+            <Link to="register" className="header__link buttons-hover">
+              Регистрация
+            </Link>
+          </Route>
+          <Route path="/register">
+            <Link to="login" className="header__link buttons-hover">
+              Войти
+            </Link>
+          </Route>
+        </Switch>
       </div>
     </header>
   );
 }
 export default Header;
-
-//<Link to="login" className="header__link buttons-hover">Войти</Link>

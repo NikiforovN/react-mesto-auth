@@ -63,16 +63,16 @@ function App() {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
-    if(isLoggedIn){
+    if (isLoggedIn) {
       Promise.all([api.getProfile(), api.getInitialCards(), tokenCheck()])
-      .then(([userData, cards]) => {
-        setCurrentUser(userData);
-        setCardsInfo(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      return
+        .then(([userData, cards]) => {
+          setCurrentUser(userData);
+          setCardsInfo(cards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return;
     }
   }, [isLoggedIn]);
 
@@ -195,51 +195,51 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  
-
-
   function handleLogin({ email, password }) {
-    return mestoAuth.authorize({ email, password })
-    .then((res) => {
-      if (!res.token) {
-        return;
-      }
-      localStorage.setItem("jwt", res.token);
-      setIsLoggedIn(true);
-    })
-    .catch((err)=>{
-      console.log(err)
-      setRegisryState(false)
-      setIsInfoTooltipPopupOpen(true)
-    });
+    return mestoAuth
+      .authorize({ email, password })
+      .then((res) => {
+        if (!res.token) {
+          return;
+        }
+        localStorage.setItem("jwt", res.token);
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setRegisryState(false);
+        setIsInfoTooltipPopupOpen(true);
+      });
   }
 
   function handleRegister({ email, password }) {
-    return mestoAuth.register({ email, password })
-    .then(() => {
-      setRegisryState(true)
+    return mestoAuth
+      .register({ email, password })
+      .then(() => {
+        setRegisryState(true);
 
-      setIsInfoTooltipPopupOpen(true)
-      history.push("/login");
-    })
-    .catch(()=>{
-      setRegisryState(false)
-      setIsInfoTooltipPopupOpen(true)
-    });
+        setIsInfoTooltipPopupOpen(true);
+        history.push("/login");
+      })
+      .catch(() => {
+        setRegisryState(false);
+        setIsInfoTooltipPopupOpen(true);
+      });
   }
 
   function tokenCheck() {
     if (localStorage.getItem("jwt")) {
       let jwt = localStorage.getItem("jwt");
-      mestoAuth.getContent(jwt)
-      .then((res) => {
-        setUserData({
-          email: res.data.email,
-          _id: res.data._id,
-        });
-        setIsLoggedIn(true);
-      })
-      .catch((err)=> console.log(err));
+      mestoAuth
+        .getContent(jwt)
+        .then((res) => {
+          setUserData({
+            email: res.data.email,
+            _id: res.data._id,
+          });
+          setIsLoggedIn(true);
+        })
+        .catch((err) => console.log(err));
     }
   }
 
@@ -289,15 +289,15 @@ function App() {
         <Footer />
 
         <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={() => {
-              closeAllPopups();
-            }}
-            onAddPlace={handleAddPlaceCard}
-            isLoading={isLoading}
-            isLoggedIn={isLoggedIn}
-            cards={cardsInfo}
-          />
+          isOpen={isAddPlacePopupOpen}
+          onClose={() => {
+            closeAllPopups();
+          }}
+          onAddPlace={handleAddPlaceCard}
+          isLoading={isLoading}
+          isLoggedIn={isLoggedIn}
+          cards={cardsInfo}
+        />
 
         <ImagePopup
           card={selectedCard}
@@ -335,7 +335,11 @@ function App() {
           isLoading={isLoading}
           isLoggedIn={isLoggedIn}
         />
-        <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} regisryState={regisryState}/>
+        <InfoTooltip
+          isOpen={isInfoTooltipPopupOpen}
+          onClose={closeAllPopups}
+          regisryState={regisryState}
+        />
       </UserInfo.Provider>
     </Switch>
   );

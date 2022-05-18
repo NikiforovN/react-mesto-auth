@@ -6,7 +6,6 @@ import Form from "./Form";
 function AddPlacePopup(props) {
   const [name, setName] = React.useState("");
   const [link, setLink] = React.useState("");
-  
 
   React.useEffect(() => {
     setName(name);
@@ -41,7 +40,11 @@ function AddPlacePopup(props) {
       show={props.isOpen}
       onClickClose={props.onClose}
     >
-      <Form title="Новое место" onSubmit={handleSubmit} loggedIn={props.isLoggedIn}>
+      <Form
+        title="Новое место"
+        onSubmit={handleSubmit}
+        loggedIn={props.isLoggedIn}
+      >
         <div className="form__field-container">
           <input
             type="text"

@@ -65,7 +65,10 @@ function Register(props) {
       </Form>
       <p className="form__register-question">
         Уже зарегистрированы?{" "}
-        <Link to="login" className="form__register-question-button buttons-hover">
+        <Link
+          to="login"
+          className="form__register-question-button buttons-hover"
+        >
           Войти
         </Link>{" "}
       </p>
@@ -74,7 +77,3 @@ function Register(props) {
 }
 
 export default Register;
-
-{
-  /* <span className="buttons-hover" onClick={props.handleSignInButtonClick}>Войти</span> */
-}

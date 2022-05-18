@@ -2,32 +2,27 @@ import React from "react";
 import Form from "./Form";
 
 function Login(props) {
+  const [inputs, setInputs] = React.useState({
+    email: "",
+    password: "",
+  });
 
-const [inputs, setInputs] = React.useState({
-  email:'',
-  password:''
-})
-
-function handleInputsChange(event){
-  const {name,value} = event.target
-  setInputs((prev)=>({
-    ...prev,
-    [name]:value,
-  }))
-}
-
-
-function handleSubmit(event){
-  event.preventDefault();
-  if(!inputs.email || !inputs.password){
-    return;
+  function handleInputsChange(event) {
+    const { name, value } = event.target;
+    setInputs((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
 
-  props.handleLogin(inputs)
-  .catch((err)=> console.log(err))
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (!inputs.email || !inputs.password) {
+      return;
+    }
 
-}
-
+    props.handleLogin(inputs).catch((err) => console.log(err));
+  }
 
   return (
     <Form title="Вход" onSubmit={handleSubmit} loggedIn={props.isLoggedIn}>
@@ -42,7 +37,7 @@ function handleSubmit(event){
           maxLength="30"
           required
           onChange={handleInputsChange}
-          value={inputs.email} 
+          value={inputs.email}
         />
         <span className="form__input-error form__title-error"></span>
       </div>
@@ -55,11 +50,14 @@ function handleSubmit(event){
           placeholder="Пароль"
           required
           onChange={handleInputsChange}
-          value={inputs.password} 
+          value={inputs.password}
         />
         <span className="form__input-error form__link-error"></span>
       </div>
-      <button className="form__button form__button_difference_authorization" type="submit">
+      <button
+        className="form__button form__button_difference_authorization"
+        type="submit"
+      >
         {props.isLoading ? "Отправка данных..." : "Войти"}
       </button>
     </Form>

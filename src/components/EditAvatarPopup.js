@@ -23,7 +23,11 @@ function EditAvatarPopup(props) {
       show={props.isOpen}
       onClickClose={props.onClose}
     >
-      <Form title="Обновить аватар" onSubmit={handleSubmit} loggedIn={props.isLoggedIn}>
+      <Form
+        title="Обновить аватар"
+        onSubmit={handleSubmit}
+        loggedIn={props.isLoggedIn}
+      >
         <div className="form__field-container">
           <input
             type="url"

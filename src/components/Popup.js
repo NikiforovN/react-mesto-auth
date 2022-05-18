@@ -1,25 +1,21 @@
 import React from "react";
 
 function Popup(props) {
-
- 
-
-  function handleOverlayClose(evt){
-    if (evt.target === evt.currentTarget)
-    props.onClickClose();
+  function handleOverlayClose(evt) {
+    if (evt.target === evt.currentTarget) props.onClickClose();
   }
 
   function handleEscClose(evt) {
     if (evt.key === "Escape") props.onClickClose();
   }
 
-  React.useEffect(()=>{
-    if(props.show){
+  React.useEffect(() => {
+    if (props.show) {
       document.addEventListener("keydown", handleEscClose);
       return;
     }
     document.removeEventListener("keydown", handleEscClose);
-  },[props.show])
+  }, [props.show]);
 
   return (
     <section
@@ -40,7 +36,6 @@ function Popup(props) {
         ></button>
 
         {props.children}
-
       </div>
     </section>
   );
